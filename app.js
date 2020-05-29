@@ -15,21 +15,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const lTetromino = {
         name: "l",
         shape: [
+            [1, 2, width + 2, width * 2 + 2],
+            [2, width, width + 1, width + 2],
+            [0, width, width * 2, width * 2 + 1],
+            [0, 1, 2, width]
+        ],
+        color: '#ffa500'
+    }
+
+    const jTetromino = {
+        name: "j",
+        shape: [
             [1, width + 1, width * 2 + 1, 2],
             [width, width + 1, width + 2, width * 2 + 2],
             [1, width + 1, width * 2 + 1, width * 2],
             [width, width * 2, width * 2 + 1, width * 2 + 2]
-        ]
+        ],
+        color: '#0000ff'
     }
 
-    const zTetromino = {
-        name: "z",
+    const sTetromino = {
+        name: "s",
         shape: [
             [0, width, width + 1, width * 2 + 1],
             [width + 1, width + 2, width * 2, width * 2 + 1],
             [0, width, width + 1, width * 2 + 1],
             [width + 1, width + 2, width * 2, width * 2 + 1]
-        ]
+        ],
+        color: '#00ff00'
+    }
+
+    const zTetromino = {
+        name: "z",
+        shape: [
+            [0, 1, width + 1, width + 2],
+            [1, width, width + 1, width * 2],
+            [0, 1, width + 1, width + 2],
+            [1, width, width + 1, width * 2]
+        ],
+        color: '#ff0000'
     }
 
     const tTetromino = {
@@ -39,7 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
             [1, width + 1, width + 2, width * 2 + 1],
             [width, width + 1, width + 2, width * 2 + 1],
             [1, width, width + 1, width * 2 + 1]
-        ]
+        ],
+        color: '#800080'
     }
 
     const oTetromino = {
@@ -49,7 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
             [0, 1, width, width + 1],
             [0, 1, width, width + 1],
             [0, 1, width, width + 1]
-        ]
+        ],
+        color: '#ffff00'
     }
 
 
@@ -60,10 +86,11 @@ document.addEventListener('DOMContentLoaded', () => {
             [width, width + 1, width + 2, width + 3],
             [1, width + 1, width * 2 + 1, width * 3 + 1],
             [width, width + 1, width + 2, width + 3]
-        ]
+        ],
+        color: '#add8e6'
     }
 
-    const theTetrominoes = [lTetromino, zTetromino, tTetromino, oTetromino, iTetromino]
+    const theTetrominoes = [lTetromino, jTetromino, sTetromino, zTetromino, tTetromino, oTetromino, iTetromino];
 
     let currentPosition = 4;
     let currentRotation = 0;
@@ -73,17 +100,19 @@ document.addEventListener('DOMContentLoaded', () => {
     let random = Math.floor(Math.random() * theTetrominoes.length);
     current = theTetrominoes[random].shape[currentRotation];
 
-    // draw first teromino 
+    // draw first teromino
     function draw() {
         current.forEach(index => {
             squares[currentPosition + index].classList.add('tetromino');
-        })
+            squares[currentPosition + index].style.backgroundColor = theTetrominoes[random].color;
+        });
     }
 
     function unDraw() {
         current.forEach(index => {
             squares[currentPosition + index].classList.remove('tetromino');
-        })
+            squares[currentPosition + index].style.backgroundColor = '';
+        });
     }
 
     // move down every second
@@ -225,22 +254,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Tetrominos without rotations
     const upNextTetrominoes = [
-        [1, displayWidth + 1, displayWidth * 2 + 1, 2], //lTetromino
-        [0, displayWidth, displayWidth + 1, displayWidth * 2 + 1], //zTetromino
-        [1, displayWidth, displayWidth + 1, displayWidth + 2], //tTetromino
-        [0, 1, displayWidth, displayWidth + 1], //oTetromino
-        [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1] //iTetromino
+        [1, 2, displayWidth + 2, displayWidth * 2 + 2], // "l"
+        [1, displayWidth + 1, displayWidth * 2 + 1, 2], // "j"
+        [displayWidth + 1, displayWidth + 2, displayWidth * 2, displayWidth * 2 + 1], // "s"
+        [1, 2, displayWidth + 2, displayWidth + 3], // "z"
+        [1, displayWidth, displayWidth + 1, displayWidth + 2], // "t"
+        [displayWidth + 1, displayWidth + 2, displayWidth * 2 + 1, displayWidth * 2 + 2], // "o"
+        [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1] // "i"
     ]
 
     // display shape in mini-grid
     function displayShape() {
         displaySquares.forEach(square => {
             square.classList.remove('tetromino');
-        })
+        });
         upNextTetrominoes[nextRandom].forEach(index => {
-            displaySquares[displayIndex + index].classList.add('tetromino');
-        })
+           displaySquares[displayIndex + index].classList.add('tetromino');
+        });
     }
+
+
+    // squares[currentPosition + index].style.backgroundColor = theTetrominoes[random].color;
 
     // make start/pause button work
     startBtn.addEventListener('click', () => {
