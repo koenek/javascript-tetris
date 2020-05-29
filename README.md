@@ -11,4 +11,6 @@ The game you learn to make thorugh the youtube video has quite a few bugs and po
   <li>Horizontal overflow on rotation</li>
   <li>Vertical overflow on rotation</li>
   <li>Tetrominoes continue to fall even though the game is over</li>
+  <li>Added missing tetrominoes</li>
+  <li>Added colors</li>
 </ul>
