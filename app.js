@@ -267,14 +267,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function displayShape() {
         displaySquares.forEach(square => {
             square.classList.remove('tetromino');
+            square.style.backgroundColor = '';
         });
         upNextTetrominoes[nextRandom].forEach(index => {
-           displaySquares[displayIndex + index].classList.add('tetromino');
+            displaySquares[displayIndex + index].classList.add('tetromino');
+            displaySquares[displayIndex + index].style.backgroundColor = theTetrominoes[nextRandom].color;
         });
     }
 
 
-    // squares[currentPosition + index].style.backgroundColor = theTetrominoes[random].color;
 
     // make start/pause button work
     startBtn.addEventListener('click', () => {
