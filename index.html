@@ -12,6 +12,7 @@
     <script src="app.js" charset="utf-8"></script>
     <link rel="stylesheet" href="style.css">
     </link>
+    <link rel="shortcut icon" href="img/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 
     <title>Tetris</title>
@@ -25,20 +26,20 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <h1>
-            <span class="t">T</span>
-            <span class="e">E</span>
-            <span class="t2">T</span>
-            <span class="r">R</span>
-            <span class="i">I</span>
-            <span class="s">S</span>
-            <div class="game-over">
-                <p>Thanks for playing!</p>
-                <p>Your Score:</p>
-                <p class="score">0</p>
-                <button class="reset-button">Play Again</button>
-            </div>
-        </h1>
+    <h1>
+        <span class="t">T</span>
+        <span class="e">E</span>
+        <span class="t2">T</span>
+        <span class="r">R</span>
+        <span class="i">I</span>
+        <span class="s">S</span>
+        <div class="game-over">
+            <p>Thanks for playing!</p>
+            <p>Your Score:</p>
+            <p class="score">0</p>
+            <button class="reset-button">Play Again</button>
+        </div>
+    </h1>
 
     <div class="container">
 
@@ -287,16 +288,26 @@
             <button id="start-button">Start/Pause</button>
             <button class="reset-button">Reset</button>
             <h2>How To Play:</h2>
-            <p class="how-to-play">Use the left and right keyboard arrows to move the tetromino pieces left and right.</p>
-            <p class="how-to-play">The up arrow rotates the tetromino piece. You can use the down arrow to speed up the falling tetromino piece.</p>
+            <p class="how-to-play">Use the left and right keyboard arrows to move the tetromino pieces left and right.
+            </p>
+            <p class="how-to-play">The up arrow rotates the tetromino piece. You can use the down arrow to speed up the
+                falling tetromino piece.</p>
 
         </div>
 
-        
+
 
     </div>
 
     <footer>&copy; Kevin Koene | <a href="https://kevinkoene.nl/" target="_blank">kevinkoene.nl</a></footer>
+
+    <script>
+        setTimeout(function () {
+            if ((screen.width < 480) || (screen.height < 480)) {
+                alert('This site is not optimized for mobile devices. Please view this website on a laptop or desktop device.')
+            }
+        }, 100);
+    </script>
 
 </body>
 
