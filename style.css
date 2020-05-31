@@ -20,27 +20,27 @@ h1 {
     margin-bottom: 100px;
 }
 
-#t {
+.t {
     color: #ffa500;
 }
 
-#e {
+.e {
     color: #0000ff;
 }
 
-#t2 {
+.t2 {
     color: #00ff00;
 }
 
-#r {
-    color: ff0000;
+.r {
+    color: #ff0000;
 }
 
-#i {
+.i {
     color: #800080;
 }
 
-#s {
+.s {
     color: #ffff00;
 }
 
@@ -107,4 +107,29 @@ button:hover {
     color: rgba(29,29,231,1);
     cursor: pointer;
     border: 3px dashed rgba(29,29,231,1);
+}
+
+.game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    height: 40%;
+    z-index: 1;
+    background: linear-gradient(22deg, rgba(2,0,36,1) 0%, rgba(29,29,231,1) 0%, rgba(0,212,255,1) 100%);
+    border: 1px solid black;
+    opacity: 0.8;
+    padding: 25px 25px 25px 25px;
+    display: none;
+    font-size: 0.5em;
+}
+
+.how-to-play {
+    font-size: 1.25em;
+}
+
+footer {
+    margin-top: 25px;
+    font-size: 2em;
 }

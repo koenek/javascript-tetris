@@ -1,15 +1,41 @@
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.grid');
     let squares = Array.from(document.querySelectorAll('.grid div'));
-    const scoreDisplay = document.querySelector('#score');
+    const scoreDisplays = document.querySelectorAll('.score');
+    const linesDisplay = document.querySelector('#lines');
+    const levelDisplay = document.querySelector('#level');
     const startBtn = document.querySelector('#start-button');
-    const resetBtn = document.querySelector('#reset-button');
+    const resetBtn = document.querySelector('.reset-button');
+    const gameOverContainer = document.querySelector('.game-over');
     const width = 10;
     let current = 0;
     let nextRandom = 0;
     let timerId;
     let score = 0;
     let gamePlaying = true;
+    let lines = 0;
+
+    class sound {
+        constructor(src) {
+            this.sound = document.createElement("audio");
+            this.sound.src = src;
+            this.sound.setAttribute("preload", "auto");
+            this.sound.setAttribute("controls", "none");
+            this.sound.style.display = "none";
+            document.body.appendChild(this.sound);
+            this.play = function () {
+                this.sound.play();
+            };
+            this.stop = function () {
+                this.sound.pause();
+            };
+        }
+    }
+
+    const fallSound = new sound('./sounds/fall.wav');
+    const lineSound = new sound('./sounds/line.wav');
+    const gameEndSound = new sound('./sounds/gameover.wav');
+
 
     // Tetromino objects
     const lTetromino = {
@@ -115,9 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // move down every second
-    // timerId = setInterval(moveDown, 500);
-
     // assign functions to keyCodes
     function control(e) {
         if (gamePlaying) {
@@ -148,6 +171,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function freeze() {
         if (current.some(index => squares[(currentPosition + index + width)].classList.contains('taken'))) {
             current.forEach(index => squares[currentPosition + index].classList.add('taken'));
+
+            fallSound.play();
+
             //start a new tetromino falling
             random = nextRandom;
             nextRandom = Math.floor(Math.random() * theTetrominoes.length);
@@ -156,6 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
             draw();
             displayShape();
             addScore();
+            addLevel();
             gameOver();
         }
     }
@@ -284,41 +311,95 @@ document.addEventListener('DOMContentLoaded', () => {
             timerId = null;
         } else {
             draw();
-            timerId = setInterval(moveDown, 500);
+            timerId = setInterval(moveDown, 1000);
             nextRandom = Math.floor(Math.random() * theTetrominoes.length);
             displayShape();
-        }
-    })
+        };
+    });
 
     resetBtn.addEventListener('click', () => {
         location.reload();
-    })
+    });
 
     //add score
     function addScore() {
         for (let i = 0; i < 199; i += width) {
-            const row = [i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9]
+            const row = [i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9];
 
             if (row.every(index => squares[index].classList.contains('taken'))) {
-                score += 10
-                scoreDisplay.innerHTML = score
+                let amountOfLines = 0; // amount of lines cleared in one sweep
+                lines++;
+                lineSound.play();
+                amountOfLines = amountOfLines + lines;
+                if (amountOfLines > 1) {
+                    score = (amountOfLines * 100) * 2;
+                } else {
+                    score += 100;
+                };
+                scoreDisplays.forEach(scoreDisplay => {
+                    scoreDisplay.innerHTML = score;
+                });
+                linesDisplay.innerHTML = lines;
                 row.forEach(index => {
-                    squares[index].classList.remove('taken')
-                    squares[index].classList.remove('tetromino')
-                    squares[index].style.backgroundColor = ''
-                })
-                const squaresRemoved = squares.splice(i, width)
-                squares = squaresRemoved.concat(squares)
-                squares.forEach(cell => grid.appendChild(cell))
+                    squares[index].classList.remove('taken');
+                    squares[index].classList.remove('tetromino');
+                    squares[index].style.backgroundColor = '';
+                });
+                const squaresRemoved = squares.splice(i, width);
+                squares = squaresRemoved.concat(squares);
+                squares.forEach(cell => grid.appendChild(cell));
             }
+        }
+    };
+
+    // change level if current score exceeds a certain amount
+    function addLevel() {
+        let currentScore = (scoreDisplays[0].innerHTML) * 1;
+        if (currentScore >= 1000 && currentScore < 2000) {
+            levelDisplay.innerHTML = 1;
+            clearInterval(timerId);
+            timerId = setInterval(moveDown, 900);
+        } else if (currentScore >= 2000 && currentScore < 3000) {
+            levelDisplay.innerHTML = 2;
+            clearInterval(timerId);
+            timerId = setInterval(moveDown, 800);
+        } else if (currentScore >= 3000 && currentScore < 5000) {
+            levelDisplay.innerHTML = 3;
+            clearInterval(timerId);
+            timerId = setInterval(moveDown, 700);
+        } else if (currentScore >= 5000 && currentScore < 10000) {
+            levelDisplay.innerHTML = 4;
+            clearInterval(timerId);
+            timerId = setInterval(moveDown, 500);
+        } else if (currentScore >= 10000 && currentScore < 25000) {
+            levelDisplay.innerHTML = 5;
+            clearInterval(timerId);
+            timerId = setInterval(moveDown, 450);
+        } else if (currentScore >= 25000 && currentScore < 50000) {
+            levelDisplay.innerHTML = 6;
+            clearInterval(timerId);
+            timerId = setInterval(moveDown, 400);
+        } else if (currentScore >= 50000 && currentScore < 100000) {
+            levelDisplay.innerHTML = 7;
+            clearInterval(timerId);
+            timerId = setInterval(moveDown, 300);
+        } else if (currentScore >= 100000 && currentScore < 250000) {
+            levelDisplay.innerHTML = 8;
+            clearInterval(timerId);
+            timerId = setInterval(moveDown, 200);
+        } else if (currentScore >= 250000) {
+            levelDisplay = 'MAX LEVEL';
+            clearInterval(timerId);
+            timerId = setInterval(moveDown, 100);
         }
     }
 
     //game over
     function gameOver() {
         if (current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
-            scoreDisplay.innerHTML = 'end';
             startBtn.style.display = 'none';
+            gameOverContainer.style.display = 'block';
+            gameEndSound.play();
             clearInterval(timerId);
             gamePlaying = false;
         }
