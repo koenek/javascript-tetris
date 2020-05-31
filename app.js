@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const linesDisplay = document.querySelector('#lines');
     const levelDisplay = document.querySelector('#level');
     const startBtn = document.querySelector('#start-button');
-    const resetBtn = document.querySelector('.reset-button');
+    const resetBtn = document.querySelector('#reset-button');
+    const playAgainBtn = document.querySelector('#play-again-button');
     const gameOverContainer = document.querySelector('.game-over');
     const width = 10;
     let current = 0;
@@ -316,8 +317,12 @@ document.addEventListener('DOMContentLoaded', () => {
             displayShape();
         };
     });
-
+    
     resetBtn.addEventListener('click', () => {
+        location.reload();
+    });
+
+    playAgainBtn.addEventListener('click', () => {
         location.reload();
     });
 
