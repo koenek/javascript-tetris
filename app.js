@@ -230,17 +230,30 @@ document.addEventListener('DOMContentLoaded', () => {
             moveLeft();
         }
 
-        // When 'z' teromino's shape equals shape[0] OR shape[2] AND is up against the right side -> move it to the left one grid space to prevent grid overflow
-        if ((current === theTetrominoes[1].shape[0] && isAtRightEdge) || (current === theTetrominoes[1].shape[2] && isAtRightEdge)) {
+        // Same goes for 'j' tetromino
+        if (current === theTetrominoes[1].shape[0] && isAtLeftEdge) {
+            moveRight();
+        }
+        if (current === theTetrominoes[1].shape[2] && isAtRightEdge) {
+            moveLeft();
+        }
+
+        // When 'z' teromino's shape equals shape[1] OR shape[3] AND is up against the right side -> move it to the left one grid space to prevent grid overflow
+        if ((current === theTetrominoes[3].shape[1] && isAtRightEdge) || (current === theTetrominoes[3].shape[3] && isAtRightEdge)) {
+            moveLeft();
+        }
+
+        // Same goes for 's' tetromino
+        if ((current === theTetrominoes[2].shape[0] && isAtRightEdge) || (current === theTetrominoes[2].shape[2] && isAtRightEdge)) {
             moveLeft();
         }
 
         // when 't' tetromino's shape equals shape[3] AND is up against the right side -> move it to the left one grid space to prevent grid overflow
-        if (current === theTetrominoes[2].shape[3] && isAtRightEdge) {
+        if (current === theTetrominoes[4].shape[3] && isAtRightEdge) {
             moveLeft();
         }
         // OR equals shape[1] AND is up against left side -> move it to the right
-        if (current === theTetrominoes[2].shape[1] && isAtLeftEdge) {
+        if (current === theTetrominoes[4].shape[1] && isAtLeftEdge) {
             moveRight();
         }
         // if tetronimo equals 't' and position is 0(reversed) t. You should not be allowed to rotate to prevent grid overflow at the bottom of the grid
@@ -249,16 +262,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // When 'I' tetromino's shape equals shape[0] OR shape[2] AND is up to left side -> move it to the right one grid space to prevent grid overflow
-        if ((current === theTetrominoes[4].shape[0] && isAtLeftEdge) || (current === theTetrominoes[4].shape[2] && isAtLeftEdge)) {
+        if ((current === theTetrominoes[6].shape[0] && isAtLeftEdge) || (current === theTetrominoes[6].shape[2] && isAtLeftEdge)) {
             moveRight();
         }
         // OR equals shape[0] OR shape[2] AND is up to right side -> move it to the left two grid spaces to prevent grid overflow
-        if ((current === theTetrominoes[4].shape[0] && isAtRightEdge) || (current === theTetrominoes[4].shape[2] && isAtRightEdge)) {
+        if ((current === theTetrominoes[6].shape[0] && isAtRightEdge) || (current === theTetrominoes[6].shape[2] && isAtRightEdge)) {
             moveLeft();
             moveLeft();
         }
         // if tetromino equals 'I' and position is 1 or 3. You should no longer be able to rotate to prevent grid overflow at the bottom of the grid
-        if ((current === theTetrominoes[4].shape[1] && twoGridSpacesLeft) || (current === theTetrominoes[4].shape[3] && twoGridSpacesLeft)) {
+        if ((current === theTetrominoes[6].shape[1] && twoGridSpacesLeft) || (current === theTetrominoes[6].shape[3] && twoGridSpacesLeft)) {
             dontRotate = true;
         }
 
