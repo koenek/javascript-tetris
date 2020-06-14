@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const resetBtn = document.querySelector('#reset-button');
     const playAgainBtn = document.querySelector('#play-again-button');
     const gameOverContainer = document.querySelector('.game-over');
+    const body = document.querySelector('#body');
     const width = 10;
     let current = 0;
     let nextRandom = 0;
@@ -325,6 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
             timerId = null;
         } else {
             draw();
+            body.style.overflowY = 'hidden';
             timerId = setInterval(moveDown, 1000);
             nextRandom = Math.floor(Math.random() * theTetrominoes.length);
             displayShape();

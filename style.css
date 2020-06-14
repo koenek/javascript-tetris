@@ -11,13 +11,13 @@ body {
     max-height: 100%;
     max-width: 100%;
     overflow-x: hidden;
-    overflow-y: hidden;
+    /* overflow-y: hidden; */
 }
 
 h1 {
-    font-size: 5em;
-    margin-top: 100px;
-    margin-bottom: 100px;
+    font-size: 3em;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .t {
@@ -62,10 +62,10 @@ h1 {
 }
 
 .grid {
-    width: 300px;
-    height: 600px;
-    min-width: 300px;
-    min-height: 600px;
+    width: 200px;
+    height: 400px;
+    min-width: 200px;
+    min-height: 400px;
     display: flex;
     flex-wrap: wrap;
     background-color: black;
@@ -73,40 +73,40 @@ h1 {
 }
 
 .grid div {
-    height: 30px;
-    width: 30px;
+    height: 20px;
+    width: 20px;
 }
 
 .mini-grid {
     margin: auto;
-    width: 120px;
-    height: 120px;
+    width: 80px;
+    height: 80px;
     display: flex;
     flex-wrap: wrap;
     background-color: black;
 }
 
 .mini-grid div {
-    height: 30px;
-    width: 30px;
+    height: 20px;
+    width: 20px;
 }
 
 h3 {
-    font-size: 2em;
+    font-size: 1.6em;
 }
 
 button {
     background: none;
-    border: 3px dashed black;
+    border: 2px dashed black;
     font-family: 'VT323', monospace;
-    font-size: 2em;
+    font-size: 1em;
 }
 
 button:hover {
     background: black;
     color: rgba(29,29,231,1);
     cursor: pointer;
-    border: 3px dashed rgba(29,29,231,1);
+    border: 2px dashed rgba(29,29,231,1);
 }
 
 .game-over {
@@ -126,10 +126,14 @@ button:hover {
 }
 
 .how-to-play {
-    font-size: 1.25em;
+    font-size: 1em;
+}
+
+.how-to {
+    margin-top: 20px;
 }
 
 footer {
     margin-top: 25px;
-    font-size: 2em;
+    font-size: 1.3em;
 }
